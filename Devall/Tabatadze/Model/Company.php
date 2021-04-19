@@ -1,26 +1,33 @@
 <?php
 
+
 namespace Devall\Tabatadze\Model;
 
-use Magento\Framework\Model\AbstractModel;
+
 use Devall\Tabatadze\Api\Data\CompanyInterface;
+use Magento\Framework\Model\AbstractModel;
 
 class Company extends AbstractModel implements CompanyInterface
 {
     const NAME = 'name';
-
     protected function _construct()
     {
-        $this->_init(ResourceModel\Company::class);
+         $this->_init(\Devall\Tabatadze\Model\ResourceModel\Company::class);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getId()
+    {
+        return parent::getData(self::ENTITY_ID);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getName()
     {
         return $this->_getData(self::NAME);
-    }
-
-    public function setName($name)
-    {
-        $this->setData(self::NAME);
     }
 }

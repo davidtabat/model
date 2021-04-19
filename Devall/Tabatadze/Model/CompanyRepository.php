@@ -5,19 +5,20 @@ namespace Devall\Tabatadze\Model;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
-use VinaiKopp\Kitchen\Api\Data\CompanyInterface;
-use VinaiKopp\Kitchen\Api\Data\CompanySearchResultInterface;
-use VinaiKopp\Kitchen\Api\Data\CompanySearchResultInterfaceFactory;
-use VinaiKopp\Kitchen\Api\CompanyRepositoryInterface;
-use VinaiKopp\Kitchen\Model\ResourceModel\Company\CollectionFactory as CompanyCollectionFactory;
-use VinaiKopp\Kitchen\Model\ResourceModel\Company\Collection;
+use Devall\Tabatadze\Api\Data\CompanyInterface;
+use Devall\Tabatadze\Api\Data\CompanySearchResultInterface;
+use Devall\Tabatadze\Api\Data\CompanySearchResultInterfaceFactory;
+use Devall\Tabatadze\Api\CompanyRepositoryInterface;
+use Devall\Tabatadze\Model\ResourceModel\Company\CollectionFactory as CompanyCollectionFactory;
+use Devall\Tabatadze\Model\ResourceModel\Company\Collection;
+use Devall\Tabatadze\Model\ResourceModel\Company;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
     /**
      * @var CompanyFactory
      */
-    private $companyFactory;
+    public $companyFactory;
 
     /**
      * @var CompanyCollectionFactory
@@ -27,16 +28,23 @@ class CompanyRepository implements CompanyRepositoryInterface
     /**
      * @var CompanySearchResultInterfaceFactory
      */
-    private $searchResultFactory;
+    public $searchResultFactory;
+    /**
+     * @var Company
+     */
+    private $company;
 
     public function __construct(
         CompanyFactory $companyFactory,
         CompanyCollectionFactory $companyCollectionFactory,
-        CompnaySearchResultInterfaceFactory $companySearchResultInterfaceFactory
+        CompanySearchResultInterfaceFactory $companySearchResultInterfaceFactory,
+        Company $company
+
     ) {
         $this->companyFactory = $companyFactory;
         $this->companyCollectionFactory = $companyCollectionFactory;
-        $this->searchResultFactory = $CompanySearchResultInterfaceFactory;
+        $this->searchResultFactory = $companySearchResultInterfaceFactory;
+        $this->company = $company;
     }
 
     // ... getById, save and delete methods listed above ...
@@ -53,6 +61,10 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         return $this->buildSearchResult($searchCriteria, $collection);
     }
+
+//    public function getById($id){}
+//    public function getById($id);
+
 
     private function addFiltersToCollection(SearchCriteriaInterface $searchCriteria, Collection $collection)
     {
@@ -90,4 +102,11 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         return $searchResults;
     }
+    public function getById($id)
+    {
+       $company = $this->companyFactory->create();
+       $this->company->load($company,$id);
+       return $company;
+    }
+
 }
