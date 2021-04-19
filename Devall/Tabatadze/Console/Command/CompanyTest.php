@@ -43,7 +43,7 @@ class CompanyTest extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Testing Companies.</info>');
-        $BLOCK = $this->companyRepository->getById(1);
+        $company = $this->companyRepository->getById(1);
         $output->writeln('<info>Testing Companies again.</info>');
     }
 }

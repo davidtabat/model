@@ -9,5 +9,4 @@
     </type>
     <preference for="Devall\Tabatadze\Api\CompanyRepositoryInterface" type="Devall\Tabatadze\Model\CompanyRepository"/>
     <preference for="Devall\Tabatadze\Api\Data\CompanyInterface" type="Devall\Tabatadze\Model\Company"/>
-    <preference for="Devall\Tabatadze\Api\Data\CompanySearchResultInterface" type="Devall\Tabatadze\Model\CompanySearchResult"/>
 </config>
